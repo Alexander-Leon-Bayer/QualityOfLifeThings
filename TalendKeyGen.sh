@@ -11,13 +11,19 @@ function create_ssh_key() {
   if [[ $response =~ ^[Yy]$ ]]; then
     if [ ! -f ~/.ssh/config ]; then
       touch ~/.ssh/config
+      echo "" >> ~/.ssh/config
+      echo "Host *" >> ~/.ssh/config
+      echo "    IdentitiesOnly yes" >> ~/.ssh/config
+      echo "Created SSH config file"
+    elif ! grep -q "^Host github.com$" ~/.ssh/config; then
+      echo "" >> ~/.ssh/config
+      echo "Host github.com" >> ~/.ssh/config
+      echo "    IdentityFile ~/.ssh/$key_name" >> ~/.ssh/config
+      echo "    IdentitiesOnly yes" >> ~/.ssh/config
+      echo "Added GitHub host to SSH config file"
+    else
+      echo "SSH config file already contains GitHub host"
     fi
-    echo "Host github.com" >> ~/.ssh/config
-    echo "    IdentityFile ~/.ssh/$key_name" >> ~/.ssh/config
-    echo "    IdentitiesOnly yes" >> ~/.ssh/config
-    echo "    User git" >> ~/.ssh/config
-    chmod 600 ~/.ssh/config
-    echo "Added GitHub host to SSH config file"
   fi
 }
 
