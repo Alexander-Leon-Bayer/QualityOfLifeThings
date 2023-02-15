@@ -4,8 +4,7 @@ function create_ssh_key() {
   read -p "Enter a name for the SSH key: " key_name
   ssh-keygen -t ecdsa -b 256 -m pem -f ~/.ssh/"$key_name" -N ""
   cat ~/.ssh/"$key_name".pub | pbcopy
-  echo "Your public key has been copied to your clipboard, paste it into GitHub in the next step. Under SSH and GPG keys."
-  open "https://github.com/settings/keys"
+  echo "Your public key has been copied to your clipboard, paste it into GitHub after the next step. Under SSH and GPG keys."
 
   read -p "Do you want to add GitHub to your SSH config file? (y/n) " response
   if [[ $response =~ ^[Yy]$ ]]; then
@@ -25,6 +24,7 @@ function create_ssh_key() {
       echo "SSH config file already contains GitHub host"
     fi
   fi
+  open "https://github.com/settings/keys"
 }
 
 create_ssh_key
