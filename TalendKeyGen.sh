@@ -17,6 +17,7 @@ function create_ssh_key() {
       echo "Created SSH config file"
   fi
   open "https://github.com/settings/keys"
+  fi
 }
 
 create_ssh_key
